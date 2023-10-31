@@ -2,11 +2,12 @@
 ###################### Project-specific Ignore Paths ######################
 
 venv/
-resources/private/
+private/
 *.sqlite3
 django/media/
 django/static/
 node_modules/
+private_testdata_*.py
 
 
 ###################### Django Templated gitignore paths  ######################
