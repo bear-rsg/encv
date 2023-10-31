@@ -2,3 +2,5 @@
 # For Django versioning we use ~= (e.g. Django~=4.2.0) which will keep the minor version up to date (e.g. the latest version prior to 4.3.0)
 
 Django~=4.2.0
+coverage~=7.3.2
+flake8~=6.1.0
