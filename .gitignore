@@ -8,6 +8,7 @@ django/media/
 django/static/
 node_modules/
 private_testdata_*.py
+django/account/migrations/initial_users/initial_users.py
 
 
 ###################### Django Templated gitignore paths  ######################
