@@ -17,7 +17,7 @@ class UserAdmin(DjangoUserAdmin):
 
     form = UserChangeForm
     model = User
-    list_display = ['username', 'first_name', 'last_name', 'email', 'role', 'participant_strand', 'is_active', 'date_joined', 'last_login']
+    list_display = ['username', 'email', 'role', 'participant_strand', 'is_active', 'date_joined', 'last_login']
     search_fields = ['username', 'first_name', 'last_name', 'email']
     list_filter = ['role', 'participant_strand', 'is_active']
     readonly_fields = ['date_joined', 'last_login']

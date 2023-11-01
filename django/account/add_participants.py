@@ -4,6 +4,7 @@ from account import models
 import csv
 import os
 
+
 def add_participants(participant_strand):
     """
     Read in the usernames and passwords of a list of participant users from a csv file
@@ -13,7 +14,12 @@ def add_participants(participant_strand):
     python manage.py shell < account/add_participants.py
     """
     # Open the csv file for this participant_strand
-    PARTICIPANTS_CSV = os.path.join(settings.BASE_DIR, 'account', 'participants', f'participants_{participant_strand}.csv')
+    PARTICIPANTS_CSV = os.path.join(
+        settings.BASE_DIR,
+        'account',
+        'participants',
+        f'participants_{participant_strand}.csv'
+    )
     # Get related data objects
     role = models.UserRole.objects.get(name='participant')
     participant_strand = models.ParticipantStrand.objects.get(name=participant_strand)
@@ -31,6 +37,7 @@ def add_participants(participant_strand):
                     participant_strand=participant_strand,
                     password=password
                 )
+
 
 # Call above function for both of the project strands
 add_participants('education')
