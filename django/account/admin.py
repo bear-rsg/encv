@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
 
-admin.site.site_header = 'ENCV: Empathy, Narrative and Cultural Values'
+admin.site.site_header = 'Empathy, Narrative and Cultural Values'
 admin.site.unregister(Group)
 
 

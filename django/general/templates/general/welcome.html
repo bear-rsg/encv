@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load settings_value %}
+
+{% block content %}
+
+<h1>Empathy, Narrative and Cultural Values</h1>
+<p>
+    The ENCV (Empathy, Narrative and Cultural Values) project is ...
+</p>
+<p>
+    Click the 'Start' button below to login and begin contributing to the project.
+</p>
+
+<p>
+    <a id="welcome-start" href="{% url 'admin:index' %}">Start</a>
+</p>
+<p>
+    If you have any questions or require any assistance please email: <a href="mailto:{% settings_value 'ADMIN_EMAIL' %}">{% settings_value 'ADMIN_EMAIL' %}</a>
+</p>
+
+{% endblock %}
