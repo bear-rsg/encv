@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
-app_name = "education"
+app_name = "health"
 
 
 class ThisAppConfig(AppConfig):
