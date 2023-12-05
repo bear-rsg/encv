@@ -12,7 +12,7 @@ class Conversation(models.Model):
     related_name = 'conversations'
 
     conversation_date = models.DateField(help_text='Please input the date the conversation was held')
-    conversation_audio = models.FileField(upload_to='health/conversation/audio')
+    conversation_audio = models.FileField(upload_to='health/conversation/audio', help_text='Please upload an audio recording of the conversation')
     cancer_champion_reflection = models.TextField(
         blank=True,
         null=True,
@@ -51,7 +51,7 @@ class Video(models.Model):
 
     title = models.CharField(max_length=255)
     video = models.FileField(upload_to='health/video')
-    description = models.TextField(blank=True,null=True)
+    description = models.TextField(blank=True, null=True)
 
     author = models.ForeignKey(User, related_name=related_name, on_delete=models.PROTECT, blank=True, null=True, verbose_name='created by')
     created = models.DateTimeField(default=timezone.now)

@@ -94,6 +94,7 @@ class ConversationAdminView(GenericAdminView):
                     'last_updated')
     list_display_links = ('view_conversation',)
     search_fields = ('id',
+                     'conversation_audio',
                      'cancer_champion_reflection',
                      'author__username')
     exclude = ('author',
