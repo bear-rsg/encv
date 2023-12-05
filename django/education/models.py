@@ -44,8 +44,8 @@ class JournalEntry(models.Model):
     )
 
     author = models.ForeignKey(User, related_name=related_name, on_delete=models.PROTECT, blank=True, null=True, verbose_name="created by")
-    created = models.DateTimeField(default=timezone.now, verbose_name="created")
-    last_updated = models.DateTimeField(blank=True, null=True, verbose_name="last updated")
+    created = models.DateTimeField(default=timezone.now)
+    last_updated = models.DateTimeField(blank=True, null=True)
 
     @property
     def name(self):
@@ -78,8 +78,8 @@ class Questionnaire(models.Model):
     link_to_questionnaire = models.URLField()
 
     author = models.ForeignKey(User, related_name=related_name, on_delete=models.PROTECT, blank=True, null=True, verbose_name="created by")
-    created = models.DateTimeField(default=timezone.now, verbose_name="created")
-    last_updated = models.DateTimeField(blank=True, null=True, verbose_name="last updated")
+    created = models.DateTimeField(default=timezone.now)
+    last_updated = models.DateTimeField(blank=True, null=True)
 
     @property
     def view_questionnaire(self):

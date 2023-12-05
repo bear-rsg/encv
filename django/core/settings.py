@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'account',
     'education',
     'general',
+    'health'
 ]
 
 MIDDLEWARE = [
