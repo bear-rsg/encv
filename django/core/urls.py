@@ -6,6 +6,8 @@ from django.conf import settings
 urlpatterns = [
     # General app URLs
     path('', include('general.urls')),
+    # CKEditor file uploads
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     # Django admin
     path('dashboard/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
