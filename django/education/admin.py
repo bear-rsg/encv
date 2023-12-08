@@ -2,45 +2,8 @@ from django.contrib import admin
 from django.db.models import ManyToManyField, ForeignKey
 from django.utils.safestring import mark_safe
 from django.utils import timezone
+from core import custom_permissions
 from . import models
-
-
-def custom_permission(self, request):
-    """
-    If specific, custom permissions are needed (e.g. user can only change/delete their own object)
-    then call this function via the following methods on a ModelAdmin below:
-    - has_change_permission(self, request, obj=None)
-    - has_delete_permission(self, request, obj=None)
-
-    self = the ModelAdmin class (or inherited class), which calls this during a method
-    request = the request in the ModelAdmin, which contains info about user, path, etc.
-    """
-    pass
-    # path = request.path.split('/')  # e.g. '/dashboard/pages/page/1/change/'
-
-    # # If an object is being changed or deleted, as specified in request path
-    # if len(path) > 3 and path[-2] in ['change', 'delete']:
-
-    #     # Ensure it only checks for the current model, as specified in request path
-    #     if self.model._meta.model_name == path[3]:
-    #         # Admins can change/delete all
-    #         if request.user.role.name == 'admin':
-    #             return True
-    #         # Collaborators
-    #         elif request.user.role.name == 'collaborator':
-    #             try:
-    #                 current_obj = self.model.objects.get(id=int(path[-3]))
-    #                 # Can change/delete if it's their own (i.e. if they created it)
-    #                 if current_obj.meta_created_by == request.user:
-    #                     return True
-    #                 # Can change (but not delete) if collaborator is marked as an editor
-    #                 elif path[-2] == 'change' and hasattr(self.model, 'admin_editors') and request.user in current_obj.admin_editors.all():
-    #                     return True
-    #             except (AttributeError, ObjectDoesNotExist):
-    #                 pass
-
-    # # Deny access if no above condition has been met
-    # return False
 
 
 def get_manytomany_fields(model, exclude=[]):
@@ -107,6 +70,24 @@ class JournalEntryAdminView(GenericAdminView):
                'created',
                'last_updated')
 
+    def has_module_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'all_users_in_strand')
+
+    def has_view_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'all_users_in_strand')
+
+    def has_add_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'all_users_in_strand')
+
+    def has_change_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'all_users_in_strand_recently_created')
+
+    def has_delete_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'admin_only')
+
+    def get_queryset(self, request, obj=None):
+        return custom_permissions.get_queryset_by_permission(self, request, 'hide_if_participant_is_not_author')
+
     def save_model(self, request, obj, form, change):
         # Automatically set author to current user
         if obj.author is None:
@@ -163,8 +144,23 @@ class QuestionnaireAdminView(GenericAdminView):
         """
         Modify the questionnaire link to include the current participant's information
         """
-        url = f'{obj.link_to_questionnaire}?username={self.user.username}'
+        url = f'{obj.link_to_questionnaire}?username={self.user.username}&user_id={self.user.id}'
         return mark_safe(f'<a href="{url}" target="_blank">{url}</a>')
+
+    def has_module_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'all_users_in_strand')
+
+    def has_view_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'all_users_in_strand')
+
+    def has_add_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'admin_only')
+
+    def has_change_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'admin_only')
+
+    def has_delete_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'admin_only')
 
     def save_model(self, request, obj, form, change):
         # Automatically set author to current user

@@ -25,7 +25,7 @@ class Conversation(models.Model):
 
     @property
     def name(self):
-        return f'Conversation: {self.author.username} ({self.conversation_date}'
+        return f'Conversation: {self.author.username} ({self.conversation_date})'
 
     @property
     def cancer_champion_reflection_preview(self):
