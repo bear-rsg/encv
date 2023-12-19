@@ -48,20 +48,23 @@ def insert_participants(apps, schema_editor):
         # Get related data objects
         role = models.UserRole.objects.get(name='participant')
         participant_strand = models.ParticipantStrand.objects.get(name=participant_strand)
-        with open(PARTICIPANTS_CSV, newline='') as csv_file:
-            participants = csv.reader(csv_file)
-            for participant in participants:
-                # Get data from record in csv
-                username = participant[0].replace('\ufeff', '')
-                password = make_password(participant[1])
-                # If user with this username doesn't already exist, create them
-                if not len(models.User.objects.filter(username=username)):
-                    models.User.objects.create(
-                        username=username,
-                        role=role,
-                        participant_strand=participant_strand,
-                        password=password
-                    )
+        try:
+            with open(PARTICIPANTS_CSV, newline='') as csv_file:
+                participants = csv.reader(csv_file)
+                for participant in participants:
+                    # Get data from record in csv
+                    username = participant[0].replace('\ufeff', '')
+                    password = make_password(participant[1])
+                    # If user with this username doesn't already exist, create them
+                    if not len(models.User.objects.filter(username=username)):
+                        models.User.objects.create(
+                            username=username,
+                            role=role,
+                            participant_strand=participant_strand,
+                            password=password
+                        )
+        except FileNotFoundError as err:
+            print(err)
 
 
 class Migration(migrations.Migration):
