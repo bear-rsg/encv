@@ -43,6 +43,32 @@ class GenericAdminView(admin.ModelAdmin):
         self.autocomplete_fields = get_foreignkey_fields(self.model)
 
 
+@admin.register(models.JournalEntryPrompt)
+class JournalEntryPromptAdminView(GenericAdminView):
+    """
+    Customise the admin interface for JournalEntryPrompt model
+    """
+
+    search_fields = ('text', 'order')
+    list_display = ('text', 'order')
+    list_display_links = ('text', 'order')
+
+    def has_module_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'admin_only')
+
+    def has_view_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'all_users_in_strand')
+
+    def has_add_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'admin_only')
+
+    def has_change_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'admin_only')
+
+    def has_delete_permission(self, request, obj=None):
+        return custom_permissions.get_permission(self, request, obj, 'admin_only')
+
+
 @admin.register(models.JournalEntry)
 class JournalEntryAdminView(GenericAdminView):
     """
@@ -59,6 +85,7 @@ class JournalEntryAdminView(GenericAdminView):
                     'created',
                     'last_updated')
     list_display_links = ('view_journal_entry',)
+    list_filter = ('prompt',)
     search_fields = ('id',
                      'text',
                      'link',
@@ -88,14 +115,17 @@ class JournalEntryAdminView(GenericAdminView):
     def get_queryset(self, request, obj=None):
         return custom_permissions.get_queryset_by_permission(self, request, 'hide_if_participant_is_not_author')
 
+    def get_readonly_fields(self, request, obj=None):
+        # Only show time_left_to_edit if the object is being edited (i.e. if object already exists)
+        return ('time_left_to_edit',) if obj else []
+
     def save_model(self, request, obj, form, change):
         # Automatically set author to current user
         if obj.author is None:
             obj.author = request.user
-
         # Automatically set last_updated to current datetime
         obj.last_updated = timezone.now()
-
+        # Save changes to object
         obj.save()
 
 
@@ -161,6 +191,9 @@ class QuestionnaireAdminView(GenericAdminView):
 
     def has_delete_permission(self, request, obj=None):
         return custom_permissions.get_permission(self, request, obj, 'admin_only')
+
+    def get_queryset(self, request, obj=None):
+        return custom_permissions.get_queryset_by_permission(self, request, 'limit_to_certain_participants')
 
     def save_model(self, request, obj, form, change):
         # Automatically set author to current user

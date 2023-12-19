@@ -1,4 +1,5 @@
 {% extends 'admin/base.html' %}
+{% load static %}
 
 {% block extrastyle %}{{ block.super }}
 <style>
@@ -9,5 +10,19 @@ html[data-theme="dark"],
   --secondary: #34495e;
   --accent: #e3f0fc;
 }
+
+footer img {
+    width: 5em;
+}
 </style>
+{% endblock %}
+
+
+{% block footer %}
+<footer>
+    {% if user.is_authenticated %}
+        <h1>Empathy, Narrative and Cultural Values</h1>
+        <img src="{% static 'images/test.jpg' %}">
+    {% endif %}
+</footer>
 {% endblock %}
