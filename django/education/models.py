@@ -80,7 +80,10 @@ class JournalEntry(models.Model):
     def time_left_to_edit(self):
         # Return a message that tells user how long they have left to edit or if they've run out of time
         days_left = timedelta(days=14) - (date.today() - self.created.date())
-        return str(days_left).split(',')[0] if days_left else "You've run out of time to edit this journal entry"
+        if days_left:
+            return f"You have {str(days_left).split(',')[0]} days left to edit this journal entry"
+        else:
+            return "You've run out of time to edit this journal entry"
 
     def __str__(self):
         return self.name

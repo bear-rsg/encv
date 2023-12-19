@@ -7,7 +7,7 @@ which is why they're stored in 'core' so can be shared between apps.
 
 
 from datetime import date, timedelta
-from django.db.models import Q 
+from django.db.models import Q
 
 
 def get_permission(self, request, obj, permission):
