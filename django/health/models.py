@@ -13,6 +13,11 @@ class Conversation(models.Model):
 
     conversation_date = models.DateField(help_text='Please input the date the conversation was held')
     conversation_audio = models.FileField(upload_to='health/conversation/audio', help_text='Please upload an audio recording of the conversation')
+    conversation_transcript = models.FileField(
+        blank=True,
+        null=True,
+        upload_to='health/conversation/transcript',
+        help_text='Please upload a file containing the transcript of the conversation, e.g. a Word document.')
     cancer_champion_reflection = models.TextField(
         blank=True,
         null=True,

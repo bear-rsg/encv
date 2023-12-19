@@ -11,8 +11,10 @@ html[data-theme="dark"],
   --accent: #e3f0fc;
 }
 
-footer img {
-    width: 5em;
+footer a img {
+    height: 5em;
+    margin: 1em;
+    display: inline-block;
 }
 </style>
 {% endblock %}
@@ -21,8 +23,19 @@ footer img {
 {% block footer %}
 <footer>
     {% if user.is_authenticated %}
-        <h1>Empathy, Narrative and Cultural Values</h1>
-        <img src="{% static 'images/test.jpg' %}">
+        <!-- Show to all users -->
+        <a href=""><img src="{% static 'images/example.jpg' %}"></a>
+        <a href=""><img src="{% static 'images/example.jpg' %}"></a>
+        <!-- Show to health strand (and admins) -->
+        {% if user.role.name == 'admin' or user.participant_strand.name == 'health' %}
+            <a href=""><img src="{% static 'images/example.jpg' %}"></a>
+            <a href=""><img src="{% static 'images/example.jpg' %}"></a>
+        {% endif %}
+        <!-- Show to education strand (and admins) -->
+        {% if user.role.name == 'admin' or user.participant_strand.name == 'education'  %}
+            <a href=""><img src="{% static 'images/example.jpg' %}"></a>
+            <a href=""><img src="{% static 'images/example.jpg' %}"></a>
+        {% endif %}
     {% endif %}
 </footer>
 {% endblock %}

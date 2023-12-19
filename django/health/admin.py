@@ -64,6 +64,17 @@ class ConversationAdminView(GenericAdminView):
                'created',
                'last_updated')
 
+    def get_fields(self, request, obj=None):
+        fields = [
+            'conversation_date',
+            'conversation_audio',
+            'cancer_champion_reflection',
+        ]
+        # Admin only fields
+        if request.user.role.name == 'admin':
+            fields += ['conversation_transcript']
+        return fields
+
     def has_module_permission(self, request, obj=None):
         return custom_permissions.get_permission(self, request, obj, 'all_users_in_strand')
 
