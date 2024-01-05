@@ -49,9 +49,9 @@ class JournalEntryPromptAdminView(GenericAdminView):
     Customise the admin interface for JournalEntryPrompt model
     """
 
-    search_fields = ('text', 'order')
-    list_display = ('text', 'order')
-    list_display_links = ('text', 'order')
+    search_fields = ('order', 'text',)
+    list_display = ('order', 'text',)
+    list_display_links = ('order', 'text',)
 
     def has_module_permission(self, request, obj=None):
         return custom_permissions.get_permission(self, request, obj, 'admin_only')

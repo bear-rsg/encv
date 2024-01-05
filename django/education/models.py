@@ -19,7 +19,7 @@ class JournalEntryPrompt(models.Model):
         return f'{self.order}) {self.text}' if self.order else self.text
 
     class Meta:
-        ordering = ['-order']
+        ordering = ['order']
 
 
 class JournalEntry(models.Model):
