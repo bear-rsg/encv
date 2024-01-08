@@ -25,6 +25,16 @@ h1 {
     font-weight: 600;
 }
 
+h2 {
+    font-size: 3em;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 2em;
+    font-weight: 600;
+}
+
 p,
 ul {
     font-size: 1.3em;

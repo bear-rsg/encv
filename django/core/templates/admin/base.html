@@ -12,7 +12,7 @@ html[data-theme="dark"],
 }
 
 footer a img {
-    height: 5em;
+    height: 3.5em;
     margin: 1em;
     display: inline-block;
 }
@@ -24,17 +24,19 @@ footer a img {
 <footer>
     {% if user.is_authenticated %}
         <!-- Show to all users -->
-        <a href=""><img src="{% static 'images/example.jpg' %}"></a>
-        <a href=""><img src="{% static 'images/example.jpg' %}"></a>
+        <a href="https://www.birmingham.ac.uk/index.aspx"><img src="{% static 'images/logos/logo-uob.jpg' %}" alt="Birmingham University logo"></a>
+        <a href="https://www.exeter.ac.uk/"><img src="{% static 'images/logos/logo-exeter.jpg' %}" alt="Exeter University logo"></a>
+        <a href="https://www.ukri.org/councils/ahrc/"><img src="{% static 'images/logos/logo-ahrc.jpg' %}" alt="AHRC logo"></a>
         <!-- Show to health strand (and admins) -->
         {% if user.role.name == 'admin' or user.participant_strand.name == 'health' %}
-            <a href=""><img src="{% static 'images/example.jpg' %}"></a>
-            <a href=""><img src="{% static 'images/example.jpg' %}"></a>
+            <a href="https://greenlanemasjid.org/"><img src="{% static 'images/logos/logo-greenlane.jpg' %}" alt="Green Lane Masjid logo"></a>
+            <a href="https://britishima.org/"><img src="{% static 'images/logos/logo-bima.jpg' %}" alt="BIMA logo"></a>
+            <a href="https://www.macmillan.org.uk/"><img src="{% static 'images/logos/logo-macmillan.jpg' %}" alt="MacMillan logo"></a>
         {% endif %}
         <!-- Show to education strand (and admins) -->
         {% if user.role.name == 'admin' or user.participant_strand.name == 'education'  %}
-            <a href=""><img src="{% static 'images/example.jpg' %}"></a>
-            <a href=""><img src="{% static 'images/example.jpg' %}"></a>
+            <a href="https://www.jcc.ac.uk/"><img src="{% static 'images/logos/logo-jc.jpg' %}" alt="Joseph Chamberlain logo"></a>
+            <a href="https://narrative4.com/"><img src="{% static 'images/logos/logo-n4.jpg' %}" alt="Narrative 4 logo"></a>
         {% endif %}
     {% endif %}
 </footer>

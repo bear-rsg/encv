@@ -13,13 +13,13 @@ class JournalEntryPrompt(models.Model):
     """
 
     text = models.TextField(unique=True, blank=True, null=True)
-    order = models.IntegerField(unique=True, blank=True, null=True)
+    order = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.order}) {self.text}' if self.order else self.text
 
     class Meta:
-        ordering = ['-order']
+        ordering = ['order']
 
 
 class JournalEntry(models.Model):
