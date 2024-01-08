@@ -174,8 +174,7 @@ class QuestionnaireAdminView(GenericAdminView):
         """
         Modify the questionnaire link to include the current participant's information
         """
-        url = f'{obj.link_to_questionnaire}?username={self.user.username}&user_id={self.user.id}'
-        return mark_safe(f'<a href="{url}" target="_blank">{url}</a>')
+        return mark_safe(f'<a href="{obj.link_to_questionnaire}" target="_blank">{obj.link_to_questionnaire}</a><br>Secret Passcode: {self.user.id}')
 
     def has_module_permission(self, request, obj=None):
         return custom_permissions.get_permission(self, request, obj, 'all_users_in_strand')
