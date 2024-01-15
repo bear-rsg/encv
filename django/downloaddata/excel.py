@@ -19,7 +19,7 @@ def write_data_to_worksheet(workbook, worksheet, datamatrix, column_titles=None)
     column_titles_style = workbook.add_format({'bold': True, 'font_color': 'white', 'bg_color': '#002060'})
 
     # Allow for line breaks by setting text_wrap to True
-    row_format = workbook.add_format({'text_wrap': True,})
+    row_format = workbook.add_format({'text_wrap': True})
 
     for row, dataitem in enumerate(datamatrix):
 
