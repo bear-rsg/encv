@@ -9,6 +9,7 @@ django/static/
 node_modules/
 private_testdata_*.py
 django/account/participants
+django/downloaddata/data/
 
 
 ###################### Django Templated gitignore paths  ######################

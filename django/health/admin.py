@@ -68,11 +68,10 @@ class ConversationAdminView(GenericAdminView):
         fields = [
             'conversation_date',
             'conversation_audio',
-            'cancer_champion_reflection',
         ]
-        # Admin only fields
         if request.user.role.name == 'admin':
-            fields += ['conversation_transcript']
+            fields += ['conversation_transcript',]
+        fields += ['cancer_champion_reflection',]
         return fields
 
     def has_module_permission(self, request, obj=None):

@@ -77,6 +77,10 @@ class JournalEntry(models.Model):
         return 'View'
 
     @property
+    def prompts_as_str(self):
+        return '\n'.join(str(prompt) for prompt in self.prompt.all())
+
+    @property
     def time_left_to_edit(self):
         # Return a message that tells user how long they have left to edit or if they've run out of time
         days_left = timedelta(days=14) - (date.today() - self.created.date())

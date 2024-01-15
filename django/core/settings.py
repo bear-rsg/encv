@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     # Custom apps
     'account',
+    'downloaddata',
     'education',
     'general',
     'health'
