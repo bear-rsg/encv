@@ -6,6 +6,7 @@ from django.conf import settings
 urlpatterns = [
     # General app URLs
     path('', include('general.urls')),
+    path('download/', include('downloaddata.urls')),
     # CKEditor file uploads
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # Django admin

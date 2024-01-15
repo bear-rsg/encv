@@ -1,5 +1,5 @@
 {% extends 'admin/base.html' %}
-{% load static %}
+{% load i18n static %}
 
 {% block extrastyle %}{{ block.super }}
 <style>
@@ -40,4 +40,29 @@ footer a img {
         {% endif %}
     {% endif %}
 </footer>
+{% endblock %}
+
+
+
+{% block userlinks %}
+    {% if user.role.name == 'admin' %}
+        <a id="downloaddatalink" href="{% url 'downloaddata:excel' %}">Download Data In Excel</a> /
+    {% endif %}
+    {% if site_url %}
+        <a href="{{ site_url }}">{% translate 'View site' %}</a> /
+    {% endif %}
+    {% if user.is_active and user.is_staff %}
+        {% url 'django-admindocs-docroot' as docsroot %}
+        {% if docsroot %}
+            <a href="{{ docsroot }}">{% translate 'Documentation' %}</a> /
+        {% endif %}
+    {% endif %}
+    {% if user.has_usable_password %}
+    <a href="{% url 'admin:password_change' %}">{% translate 'Change password' %}</a> /
+    {% endif %}
+    <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+        {% csrf_token %}
+        <button type="submit">{% translate 'Log out' %}</button>
+    </form>
+    {% include "admin/color_theme_toggle.html" %}
 {% endblock %}
