@@ -36,8 +36,8 @@ def write_data_to_worksheet(workbook, worksheet, datamatrix, column_titles=None)
             # Write data for each row
             worksheet.write(row + column_titles_adjustment, col, value, row_format)
 
-            # Determine column widths
-            col_width = len(str(value))
+            # Determine column widths (length of string or 70, whichever is smaller)
+            col_width = min([70, len(str(value))])
             # Set initial values in column_max_widths list, if not set in columns above
             if len(column_max_widths) <= col:
                 column_max_widths.append(col_width)
@@ -50,8 +50,11 @@ def write_data_to_worksheet(workbook, worksheet, datamatrix, column_titles=None)
         worksheet.set_column(col, col, cmw)
 
 
-def media_url_full(request, file_url):
-    return f"{request.scheme}://{request.META['HTTP_HOST']}{file_url}"
+def media_url_full(request, media_file_path):
+    """
+    Return the full URL of the media file
+    """
+    return f"{request.scheme}://{request.META['HTTP_HOST']}{media_file_path}"
 
 
 def create_workbook(request):

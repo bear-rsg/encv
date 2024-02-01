@@ -46,7 +46,8 @@ footer a img {
 
 {% block userlinks %}
     {% if user.role.name == 'admin' %}
-        <a id="downloaddatalink" href="{% url 'downloaddata:excel' %}">Download Data In Excel</a> /
+        <a class="downloaddatalink" href="{% url 'downloaddata:excel' %}">Download Data In Excel</a> /
+        <a class="downloaddatalink" href="{% url 'downloaddata:word' %}">Download Data In Word</a> /
     {% endif %}
     {% if site_url %}
         <a href="{{ site_url }}">{% translate 'View site' %}</a> /
