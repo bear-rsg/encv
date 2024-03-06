@@ -30,12 +30,13 @@ class JournalEntry(models.Model):
     related_name = 'journal_entries'
     upload_to_root = 'education/journal_entry/'
 
-    prompt = models.ManyToManyField(JournalEntryPrompt, blank=True, related_name=related_name)
-    text = RichTextUploadingField(
+    prompt = models.ManyToManyField(
+        JournalEntryPrompt,
         blank=True,
-        null=True,
-        help_text="Optional if providing content in another format below, e.g. audio/video"
+        related_name=related_name,
+        help_text="<br><strong style='color: #34495e; font-size: 1.3em;'>Please share any general reflections you have about the text you are reading. You can use the prompts above to focus your thinking.</strong><br>"
     )
+    text = RichTextUploadingField(blank=True, null=True, help_text="Optional if providing content in another format below, e.g. audio/video.")
     link = models.URLField(
         blank=True,
         null=True,
